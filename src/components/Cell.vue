@@ -11,14 +11,6 @@ export default {
         width: Number,
         height: Number,
     },
-    computed: {
-        cssVars() {
-            return {
-                '--width': this.width,
-                '--height': this.height,
-            }
-        }
-    }
 }
 </script>
 
