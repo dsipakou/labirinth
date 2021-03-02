@@ -1,15 +1,30 @@
 <template>
-    <div class="cell">
+    <div class="cell" v-bind:style="{ width: width + 'px', height: height + 'px' }">
         
     </div>
 </template>
 
+<script>
+export default {
+    name: 'Cell',
+    props: {
+        width: Number,
+        height: Number,
+    },
+    computed: {
+        cssVars() {
+            return {
+                '--width': this.width,
+                '--height': this.height,
+            }
+        }
+    }
+}
+</script>
 
 <style scoped>
 .cell {
     position: absolute;
-    width: 10px;
-    height: 10px;
     top: 100;
     left: 100;
     background-color: black;

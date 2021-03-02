@@ -2,7 +2,7 @@
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <Cell />
+    <Cell v-bind:width="20" v-bind:height="30"/>
   </div>
 </template>
 
