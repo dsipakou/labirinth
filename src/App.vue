@@ -2,7 +2,9 @@
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <Cell v-bind:width="20" v-bind:height="30"/>
+    <div v-for="i in [10,20,30,40]" :key="i">
+        <Cell :width="i" height="30"/>
+    </div>
   </div>
 </template>
 
