@@ -2,9 +2,8 @@
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <div v-for="i in [10,20,30,40]" :key="i">
-        {{i}}
-        <Cell :width="i" height="30"/>
+    <div v-for="i in coords" :key="i">
+        <Cell :left="i"/>
     </div>
   </div>
 </template>
@@ -14,11 +13,16 @@ import HelloWorld from './components/HelloWorld.vue'
 import Cell from './components/Cell.vue'
 
 export default {
+  data () {
+    return {
+      coords: [10, 20, 30, 40, 50],
+    }
+  },
   name: 'App',
   components: {
     HelloWorld,
-    Cell
-  }
+    Cell,
+  },
 }
 </script>
 
