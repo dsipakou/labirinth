@@ -3,6 +3,7 @@
     <img alt="Vue logo" src="./assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
     <div v-for="i in coords" :key="i">
+        {{ winWidth }}
         <Cell :left="i"/>
     </div>
   </div>
@@ -14,8 +15,13 @@ import Cell from './components/Cell.vue'
 
 export default {
   data () {
+    let arr = []
+    for (let i = 0; i < window.innerWidth - 40; i += 20) {
+      arr.push(i);
+    }
     return {
-      coords: [10, 20, 30, 40, 50],
+      coords: arr,
+      winWidth: window.innerWidth,
     }
   },
   name: 'App',
