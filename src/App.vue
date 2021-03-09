@@ -2,9 +2,12 @@
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <div v-for="i in coords" :key="i">
+    <div v-for="width in widths" :key="width">
         {{ winWidth }}
-        <Cell :left="i"/>
+        {{ winHeight }}
+        <div v-for="height in heights" :key="height">
+          <Cell :left="width" :top="height"/>
+        </div>
     </div>
   </div>
 </template>
@@ -14,17 +17,19 @@ import Cell from './components/Cell.vue'
 
 export default {
   data () {
-    let arr = []
+    let widths = []
     for (let i = 0; i < window.innerWidth - 40; i += 20) {
-      let innerArr = [];
-      for (let j = 0; j < window.innerHeight - 40; j += 20) {
-        innerArr.push(j);
-      }
-      arr.push(innerArr);
+      widths.push(i);
+    }
+    let heights = [];
+    for (let i = 0; i < window.innerHeight - 40; i += 20) {
+      heights.push(i)
     }
     return {
-      coords: arr,
+      widths,
+      heights,
       winWidth: window.innerWidth,
+      winHeight: window.innerHeight,
     }
   },
   name: 'App',

@@ -1,5 +1,5 @@
 <template>
-    <div class="cell" v-bind:style="{ left: left + 'px' }"></div>
+    <div class="cell" v-bind:style="{ left: left + 'px', top: top + 'px' }"></div>
 </template>
 
 <script>
@@ -7,6 +7,7 @@ export default {
     name: 'Cell',
     props: {
         left: Number,
+        top: Number,
     },
 }
 </script>
@@ -16,7 +17,6 @@ export default {
     width: 16px;
     height: 16px;
     position: absolute;
-    top: 100px;
     background-color: black;
     padding: 1px;
     border: 1px solid white;
