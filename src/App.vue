@@ -1,11 +1,9 @@
 <template>
   <div id="app">
-    <div v-for="width in widths" :key="width">
-        {{ winWidth }}
-        {{ winHeight }}
-        <div v-for="height in heights" :key="height">
-          <Cell :left="width" :top="height"/>
-        </div>
+    <div v-for="widths, widthIndex in maze" :key="widths">
+      <div v-for="height, heightIndex in widths" :key="height">
+        <Cell :left="widthIndex * 20" :top="heightIndex * 20" :type="maze[widthIndex, heightIndex]"/>
+      </div>
     </div>
   </div>
 </template>
@@ -15,17 +13,11 @@ import Cell from './components/Cell.vue'
 
 export default {
   data () {
-    let widths = []
-    for (let i = 0; i < window.innerWidth - 40; i += 20) {
-      widths.push(i);
-    }
-    let heights = [];
-    for (let i = 0; i < window.innerHeight - 40; i += 20) {
-      heights.push(i)
-    }
+    let width = Math.floor((window.innerWidth - 40) / 20);
+    let height = Math.floor((window.innerHeight - 40) / 20);
+    let maze = new Array(width).fill(0).map(() => new Array(height).fill(0));
     return {
-      widths,
-      heights,
+      maze,
       winWidth: window.innerWidth,
       winHeight: window.innerHeight,
     }

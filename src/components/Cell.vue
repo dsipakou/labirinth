@@ -1,5 +1,5 @@
 <template>
-    <div class="cell" v-bind:style="{ left: left + 'px', top: top + 'px' }"></div>
+    <div class="cell" v-bind:style="{ left: left + 'px', top: top + 'px', background: type }"></div>
 </template>
 
 <script>
