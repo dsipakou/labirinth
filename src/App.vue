@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <div v-for="widths, widthIndex in maze" :key="widths">
-      <div v-for="height, heightIndex in widths" :key="height">
-        <Cell :left="widthIndex * 20" :top="heightIndex * 20" :type="maze[widthIndex, heightIndex]"/>
+    <div v-for="heights, heightIndex in maze" :key="heights">
+      <div v-for="width, widthIndex in heights" :key="width">
+        <Cell :left="widthIndex * 20" :top="heightIndex * 20" :type="maze[heightIndex][widthIndex]"/>
       </div>
     </div>
   </div>
@@ -15,7 +15,15 @@ export default {
   data () {
     let width = Math.floor((window.innerWidth - 40) / 20);
     let height = Math.floor((window.innerHeight - 40) / 20);
-    let maze = new Array(width).fill(0).map(() => new Array(height).fill(0));
+    let maze = new Array(height).fill(0).map(() => new Array(width).fill(0));
+    for (let i = 0; i < maze[0].length; i += 1) {
+      maze[0][i] = 1;
+      maze[height - 1][i] = 1;
+    }
+    for (let i = 1; i < maze.length; i += 1) {
+      maze[i][0] = 1;
+      maze[i][width - 1] = 1;
+    }
     return {
       maze,
       winWidth: window.innerWidth,
