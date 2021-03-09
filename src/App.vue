@@ -10,14 +10,17 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 import Cell from './components/Cell.vue'
 
 export default {
   data () {
     let arr = []
     for (let i = 0; i < window.innerWidth - 40; i += 20) {
-      arr.push(i);
+      let innerArr = [];
+      for (let j = 0; j < window.innerHeight - 40; j += 20) {
+        innerArr.push(j);
+      }
+      arr.push(innerArr);
     }
     return {
       coords: arr,
@@ -26,7 +29,6 @@ export default {
   },
   name: 'App',
   components: {
-    HelloWorld,
     Cell,
   },
 }
