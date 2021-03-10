@@ -13,6 +13,14 @@ import Cell from './components/Cell.vue'
 
 export default {
   data () {
+    const generateMaze = (maze, min, max) => {
+      const rand = Math.floor(Math.random() * (max - min) + min);
+      for (let i = 1; i < maze[0].length - 1; i += 1) {
+        maze[rand][i] = 1;
+      }
+      return maze; 
+    }
+
     let width = Math.floor((window.innerWidth - 40) / 20);
     let height = Math.floor((window.innerHeight - 40) / 20);
     let maze = new Array(height).fill(0).map(() => new Array(width).fill(0));
@@ -25,7 +33,7 @@ export default {
       maze[i][width - 1] = 1;
     }
     return {
-      maze,
+      maze: generateMaze(maze, 1, maze.length - 2),
       winWidth: window.innerWidth,
       winHeight: window.innerHeight,
     }
@@ -45,5 +53,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  width: 100%;
+  height: 100%;
 }
 </style>
