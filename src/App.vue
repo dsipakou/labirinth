@@ -21,12 +21,12 @@ export default {
         }
         let rand = Math.floor(Math.random() * diff + minWidth);
         console.log(rand, direction);
-        for (let i = minHeight - 1; i < maxHeight + 1; i += 1) {
+        for (let i = minHeight - 1; i < maxHeight + 2; i += 1) {
           maze[i][rand] = 1;
         } 
 
-        maze = generateMaze(maze, minWidth, rand - 1, minHeight, maxHeight, 0);
-        maze = generateMaze(maze, rand + 1, maxWidth, minHeight, maxHeight, 0);
+        maze = generateMaze(maze, minWidth, rand - 2, minHeight, maxHeight, 0);
+        maze = generateMaze(maze, rand + 2, maxWidth, minHeight, maxHeight, 0);
       } else {
         let diff = maxHeight - minHeight;
         if (diff < 1) {
@@ -34,13 +34,13 @@ export default {
         }
         let rand = Math.floor(Math.random() * diff + minHeight);
         console.log(rand, direction);
-        for (let i = minWidth - 1; i < maxWidth + 1; i += 1) {
+        for (let i = minWidth - 1; i < maxWidth + 2; i += 1) {
           console.log(i, rand, maxWidth, maxHeight);
           maze[rand][i] = 1;
         }
 
-        maze = generateMaze(maze, minWidth, maxWidth, minHeight, rand - 1, 1);
-        maze = generateMaze(maze, minWidth, maxWidth, rand + 1, maxHeight, 1);
+        maze = generateMaze(maze, minWidth, maxWidth, minHeight, rand - 2, 1);
+        maze = generateMaze(maze, minWidth, maxWidth, rand + 2, maxHeight, 1);
       }
       
       return maze;
