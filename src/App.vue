@@ -25,7 +25,8 @@ export default {
           maze[i][rand] = 1;
         } 
 
-        return generateMaze(maze, minWidth, rand - 1, minHeight, maxHeight, 0);
+        maze = generateMaze(maze, minWidth, rand - 1, minHeight, maxHeight, 0);
+        maze = generateMaze(maze, rand + 1, maxWidth, minHeight, maxHeight, 0);
       } else {
         let diff = maxHeight - minHeight;
         if (diff < 1) {
@@ -38,8 +39,11 @@ export default {
           maze[rand][i] = 1;
         }
 
-        return generateMaze(maze, minWidth, maxWidth, minHeight, rand - 1, 1);
+        maze = generateMaze(maze, minWidth, maxWidth, minHeight, rand - 1, 1);
+        maze = generateMaze(maze, minWidth, maxWidth, rand + 1, maxHeight, 1);
       }
+      
+      return maze;
     }
 
     let width = Math.floor((window.innerWidth - 40) / 20);
