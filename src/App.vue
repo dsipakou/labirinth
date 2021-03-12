@@ -13,34 +13,32 @@ import Cell from './components/Cell.vue'
 
 export default {
   data () {
-    const generateMaze = (maze, minWidth, maxWidth, minHeight, maxHeight, direction) => {
-      if (direction === 1) {
+    const generateMaze = (maze, minWidth, maxWidth, minHeight, maxHeight) => {
+      if (maxWidth - minWidth > maxHeight - minHeight) {
         let diff = maxWidth - minWidth;
         if (diff < 1) {
           return maze;
         }
         let rand = Math.floor(Math.random() * diff + minWidth);
-        console.log(rand, direction);
         for (let i = minHeight - 1; i < maxHeight + 2; i += 1) {
           maze[i][rand] = 1;
         } 
 
-        maze = generateMaze(maze, minWidth, rand - 2, minHeight, maxHeight, 0);
-        maze = generateMaze(maze, rand + 2, maxWidth, minHeight, maxHeight, 0);
+        maze = generateMaze(maze, minWidth, rand - 2, minHeight, maxHeight);
+        maze = generateMaze(maze, rand + 2, maxWidth, minHeight, maxHeight);
       } else {
         let diff = maxHeight - minHeight;
         if (diff < 1) {
           return maze;
         }
         let rand = Math.floor(Math.random() * diff + minHeight);
-        console.log(rand, direction);
         for (let i = minWidth - 1; i < maxWidth + 2; i += 1) {
           console.log(i, rand, maxWidth, maxHeight);
           maze[rand][i] = 1;
         }
 
-        maze = generateMaze(maze, minWidth, maxWidth, minHeight, rand - 2, 1);
-        maze = generateMaze(maze, minWidth, maxWidth, rand + 2, maxHeight, 1);
+        maze = generateMaze(maze, minWidth, maxWidth, minHeight, rand - 2);
+        maze = generateMaze(maze, minWidth, maxWidth, rand + 2, maxHeight);
       }
       
       return maze;
@@ -58,7 +56,7 @@ export default {
       maze[i][width - 1] = 1;
     }
     return {
-      maze: generateMaze(maze, 2, maze[0].length - 2, 2, maze.length - 2, 1),
+      maze: generateMaze(maze, 2, maze[0].length - 2, 2, maze.length - 2),
       winWidth: window.innerWidth,
       winHeight: window.innerHeight,
     }
