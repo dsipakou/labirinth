@@ -25,6 +25,12 @@ export default {
           maze[i][rand] = 1;
         } 
 
+        let hole = Math.floor(Math.random() * (maxHeight - minHeight) + minHeight);
+        hole += hole % 2 - 1;
+        hole = hole > 0 ? hole : 0;
+        console.log(hole, rand, maxHeight, minHeight);
+        maze[hole][rand] = 0;
+
         maze = generateMaze(maze, minWidth, rand - 2, minHeight, maxHeight);
         maze = generateMaze(maze, rand + 2, maxWidth, minHeight, maxHeight);
       } else {
