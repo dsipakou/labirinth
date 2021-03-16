@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <div v-for="heights, heightIndex in maze" :key="heights">
-      <div v-for="width, widthIndex in heights" :key="width">
+    <div v-for="heights, heightIndex in maze" :key="heights + heightIndex">
+      <div v-for="width, widthIndex in heights" :key="width + widthIndex + heightIndex">
         <Cell :left="widthIndex * 20" :top="heightIndex * 20" :type="maze[heightIndex][widthIndex]"/>
       </div>
     </div>
@@ -20,6 +20,7 @@ export default {
           return maze;
         }
         let rand = Math.floor(Math.random() * diff + minWidth);
+        rand += rand % 2;
         for (let i = minHeight - 1; i < maxHeight + 2; i += 1) {
           maze[i][rand] = 1;
         } 
@@ -32,8 +33,8 @@ export default {
           return maze;
         }
         let rand = Math.floor(Math.random() * diff + minHeight);
+        rand += rand % 2;
         for (let i = minWidth - 1; i < maxWidth + 2; i += 1) {
-          console.log(i, rand, maxWidth, maxHeight);
           maze[rand][i] = 1;
         }
 
@@ -45,7 +46,10 @@ export default {
     }
 
     let width = Math.floor((window.innerWidth - 40) / 20);
+    width += width % 2 - 1;
     let height = Math.floor((window.innerHeight - 40) / 20);
+    height += height % 2 - 1;
+    console.log(width, height)
     let maze = new Array(height).fill(0).map(() => new Array(width).fill(0));
     for (let i = 0; i < maze[0].length; i += 1) {
       maze[0][i] = 1;
@@ -56,7 +60,7 @@ export default {
       maze[i][width - 1] = 1;
     }
     return {
-      maze: generateMaze(maze, 2, maze[0].length - 2, 2, maze.length - 2),
+      maze: generateMaze(maze, 2, maze[0].length - 2, 2, maze.length - 2, 1),
       winWidth: window.innerWidth,
       winHeight: window.innerHeight,
     }
