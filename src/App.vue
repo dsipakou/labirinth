@@ -13,39 +13,39 @@ import Cell from './components/Cell.vue'
 
 export default {
   data () {
-    const generateMaze = (maze, minWidth, maxWidth, minHeight, maxHeight) => {
-      if (maxWidth - minWidth > maxHeight - minHeight) {
-        let diff = maxWidth - minWidth;
+    const generateMaze = (maze, x, maxWidth, y, maxHeight) => {
+      if (maxWidth - x > maxHeight - y) {
+        let diff = maxWidth - x;
         if (diff < 1) {
           return maze;
         }
-        let rand = Math.floor(Math.random() * diff + minWidth);
+        let rand = Math.floor(Math.random() * diff + x);
         rand += rand % 2;
-        for (let i = minHeight - 1; i < maxHeight + 2; i += 1) {
+        for (let i = y - 1; i < maxHeight + 2; i += 1) {
           maze[i][rand] = 1;
         } 
 
-        let hole = Math.floor(Math.random() * (maxHeight - minHeight) + minHeight);
+        let hole = Math.floor(Math.random() * (maxHeight - y) + y);
         hole += hole % 2 - 1;
         hole = hole > 0 ? hole : 0;
-        console.log(hole, rand, maxHeight, minHeight);
+        console.log(hole, rand, maxHeight, y);
         maze[hole][rand] = 0;
 
-        maze = generateMaze(maze, minWidth, rand - 2, minHeight, maxHeight);
-        maze = generateMaze(maze, rand + 2, maxWidth, minHeight, maxHeight);
+        maze = generateMaze(maze, x, rand - 2, y, maxHeight);
+        maze = generateMaze(maze, rand + 2, maxWidth, y, maxHeight);
       } else {
-        let diff = maxHeight - minHeight;
+        let diff = maxHeight - y;
         if (diff < 1) {
           return maze;
         }
-        let rand = Math.floor(Math.random() * diff + minHeight);
+        let rand = Math.floor(Math.random() * diff + y);
         rand += rand % 2;
-        for (let i = minWidth - 1; i < maxWidth + 2; i += 1) {
+        for (let i = x - 1; i < maxWidth + 2; i += 1) {
           maze[rand][i] = 1;
         }
 
-        maze = generateMaze(maze, minWidth, maxWidth, minHeight, rand - 2);
-        maze = generateMaze(maze, minWidth, maxWidth, rand + 2, maxHeight);
+        maze = generateMaze(maze, x, maxWidth, y, rand - 2);
+        maze = generateMaze(maze, x, maxWidth, rand + 2, maxHeight);
       }
       
       return maze;
