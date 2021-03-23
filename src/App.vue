@@ -24,19 +24,23 @@ export default {
     const generateMaze = (maze, left, right, bottom, top) => {
       if (right - left > top - bottom) {
         let diff = right - left;
-        if (diff < 2) {
+        if (diff < 3) {
           return maze;
         }
         
         let pivot = Math.floor(Math.random() * diff + left);
         pivot += pivot % 2;
 
-        for (let i = bottom - 1; i < top + 2; i += 1) {
+        for (let i = bottom; i < top; i += 1) {
           maze[i][pivot] = 1;
         }
 
-        maze = generateMaze(maze, left, pivot - 2, bottom, top);
-        maze = generateMaze(maze, pivot + 2, right, bottom, top);
+        var hole = Math.floor(Math.random() * (top - bottom) + bottom);
+        maze[hole][pivot] = 0;
+        maze = generateMaze(maze, left, pivot - 2, bottom, hole - 1);
+        maze = generateMaze(maze, left, pivot - 2, hole + 1, top);
+        maze = generateMaze(maze, pivot + 1, right, bottom, hole - 1);
+        maze = generateMaze(maze, pivot + 1, right, hole + 1, top);
       } else {
         let diff = top - bottom;
 
