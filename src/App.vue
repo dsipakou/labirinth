@@ -36,9 +36,11 @@ export default {
         }
 
         var hole = Math.floor(Math.random() * (top - bottom) + bottom);
-        maze[hole][pivot] = 0;
-        maze = generateMaze(maze, left, pivot - 2, bottom, hole - 1);
-        maze = generateMaze(maze, left, pivot - 2, hole + 1, top);
+        if (hole < maze.length - 1 && hole > 0) {
+          maze[hole][pivot] = 0;
+        }
+        maze = generateMaze(maze, left, pivot - 1, bottom, hole - 1);
+        maze = generateMaze(maze, left, pivot - 1, hole + 1, top);
         maze = generateMaze(maze, pivot + 1, right, bottom, hole - 1);
         maze = generateMaze(maze, pivot + 1, right, hole + 1, top);
       } else {
@@ -55,8 +57,8 @@ export default {
           maze[pivot][i] = 1;
         }
 
-        maze = generateMaze(maze, left, right, bottom, pivot - 2);
-        maze = generateMaze(maze, left, right, pivot + 2, top);
+        // maze = generateMaze(maze, left, right, bottom, pivot - 2);
+        // maze = generateMaze(maze, left, right, pivot + 2, top);
       }
       
       return maze;
@@ -64,10 +66,10 @@ export default {
 
     //let width = Math.floor((window.innerWidth - 40) / 20);
     //width += width % 2 - 1;
-    let width = 101;
+    let width = 51;
     //let height = Math.floor((window.innerHeight - 40) / 20);
     //height += height % 2 - 1;
-    let height = 51;
+    let height = 21;
     let maze = new Array(height).fill(0).map(() => new Array(width).fill(0));
     for (let i = 0; i < maze[0].length; i += 1) {
       maze[0][i] = 1;
@@ -78,7 +80,7 @@ export default {
       maze[i][width - 1] = 1;
     }
     return {
-      maze: generateMaze(maze, 2, maze[0].length - 2, 2, maze.length - 2, 1),
+      maze: generateMaze(maze, 1, maze[0].length - 1, 1, maze.length - 1, 1),
       winWidth: window.innerWidth,
       winHeight: window.innerHeight,
     }
