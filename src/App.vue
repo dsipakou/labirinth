@@ -22,7 +22,6 @@ export default {
     }*/
 
     const generateMaze = (maze, left, right, bottom, top) => {
-      console.log(left, right, bottom, top)
       if (right - left > top - bottom) {
         let diff = right - left;
         if (diff < 2) {
