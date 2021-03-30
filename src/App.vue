@@ -1,5 +1,12 @@
 <template>
   <div id="app">
+    <select v-model="selected">
+      <option disabled value="">Please select one</option>
+      <option>A</option>
+      <option>B</option>
+      <option>C</option>
+    </select>
+    <span>Selected: {{ selected }}</span>
     <div v-for="heights, heightIndex in maze" :key="heights + heightIndex">
       <div v-for="width, widthIndex in heights" :key="width + widthIndex + heightIndex">
         <Cell :left="widthIndex * 20" :top="heightIndex * 20" :type="maze[heightIndex][widthIndex]"/>
@@ -13,37 +20,34 @@ import Cell from './components/Cell.vue'
 
 export default {
   data () {
-    /*const makeHole = (maze, x, y, rand) => {
-      let hole = Math.floor(Math.random() * x + y);
-      hole += hole % 2 - 1;
-      hole = hole > 0 ? hole : 0;
-      maze[hole][rand] = 0;
-      return maze;
-    }*/
 
     const generateMaze = (maze, left, right, bottom, top) => {
       if (right - left > top - bottom) {
         let diff = right - left;
-        if (diff < 3) {
+        if (diff < 4) {
           return maze;
         }
         
-        let pivot = Math.floor(Math.random() * diff + left);
-        pivot += pivot % 2;
+        const ratio = Math.max(0, diff - 5)
+        let wall = Math.floor(Math.random() * ratio + left + 1);
+        wall += wall % 2;
+        console.log(diff, left, wall, right)
 
         for (let i = bottom; i < top; i += 1) {
-          maze[i][pivot] = 1;
+          maze[i][wall] = 1;
         }
 
-        var hole = Math.floor(Math.random() * (top - bottom) + bottom);
+        var hole = Math.floor(Math.random() * (top - bottom - 2) + bottom);
         if (hole < maze.length - 1 && hole > 0) {
-          maze[hole][pivot] = 0;
+          maze[hole][wall] = 0;
         }
-        maze = generateMaze(maze, left, pivot - 1, bottom, hole - 1);
-        maze = generateMaze(maze, left, pivot - 1, hole + 1, top);
-        maze = generateMaze(maze, pivot + 1, right, bottom, hole - 1);
-        maze = generateMaze(maze, pivot + 1, right, hole + 1, top);
+        /*maze = generateMaze(maze, left, wall, bottom, hole - 1);
+        maze = generateMaze(maze, left, wall, hole + 1, top);
+        maze = generateMaze(maze, wall, right, bottom, hole - 1);
+        maze = generateMaze(maze, wall, right, hole + 1, top);*/
       } else {
+        return maze
+        /*
         let diff = top - bottom;
 
         if (diff < 2) {
@@ -56,11 +60,12 @@ export default {
         for (let i = left - 1; i < right + 2;  i += 1) {
           maze[pivot][i] = 1;
         }
-
+*/
         // maze = generateMaze(maze, left, right, bottom, pivot - 2);
         // maze = generateMaze(maze, left, right, pivot + 2, top);
       }
       
+      console.log('return')
       return maze;
     }
 
@@ -79,8 +84,10 @@ export default {
       maze[i][0] = 1;
       maze[i][width - 1] = 1;
     }
+    const finalMaze = generateMaze(maze, 0, maze[0].length - 1, 0, maze.length - 1)
+    console.log(finalMaze)
     return {
-      maze: generateMaze(maze, 1, maze[0].length - 1, 1, maze.length - 1, 1),
+      maze: finalMaze,
       winWidth: window.innerWidth,
       winHeight: window.innerHeight,
     }
