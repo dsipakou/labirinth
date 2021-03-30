@@ -46,21 +46,18 @@ export default {
         maze = generateMaze(maze, wall, right, bottom, hole - 1);
         maze = generateMaze(maze, wall, right, hole + 1, top);*/
       } else {
-        return maze
-        /*
         let diff = top - bottom;
 
-        if (diff < 2) {
+        if (diff < 4) {
           return maze;
         }
 
-        let pivot = Math.floor(Math.random() * diff + bottom);
-        pivot += pivot % 2;
+        let wall = Math.floor(Math.random() * diff + bottom);
+        wall += wall % 2;
 
-        for (let i = left - 1; i < right + 2;  i += 1) {
-          maze[pivot][i] = 1;
+        for (let i = left - 1; i < right;  i += 1) {
+          maze[wall][i] = 1;
         }
-*/
         // maze = generateMaze(maze, left, right, bottom, pivot - 2);
         // maze = generateMaze(maze, left, right, pivot + 2, top);
       }
