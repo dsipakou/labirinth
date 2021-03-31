@@ -22,16 +22,17 @@ export default {
   data () {
 
     const generateMaze = (maze, left, right, bottom, top) => {
-      if (right - left > top - bottom) {
-        let diff = right - left;
-        if (diff < 4) {
+      const hDiff = right - left;
+      const vDiff = top - bottom;
+
+      if (hDiff < vDiff) {
+        if (hDiff < 4) {
           return maze;
         }
         
-        const hRatio = Math.max(0, diff - 5)
-        let wall = Math.floor(Math.random() * hRatio+ left + 1);
+        let hRatio = Math.max(0, hDiff - 5)
+        let wall = Math.floor(Math.random() * hRatio + left + 1);
         wall += wall % 2;
-        console.log(diff, left, wall, right)
 
         for (let i = bottom; i < top; i += 1) {
           maze[i][wall] = 1;
@@ -53,12 +54,17 @@ export default {
           return maze;
         }
 
-        let wall = Math.floor(Math.random() * diff + bottom);
+        let vRatio = Math.max(0, vDiff - 5);
+        let wall = Math.floor(Math.random() * vRatio + bottom + 1);
         wall += wall % 2;
 
         for (let i = left - 1; i < right;  i += 1) {
           maze[wall][i] = 1;
         }
+
+        let hole = Math.floor(Math.random() * (hDiff - 2) + left);
+        hole += hole % 2 + 1;
+        maze[wall][hole] = 0;
         // maze = generateMaze(maze, left, right, bottom, pivot - 2);
         // maze = generateMaze(maze, left, right, pivot + 2, top);
       }
@@ -69,10 +75,10 @@ export default {
 
     //let width = Math.floor((window.innerWidth - 40) / 20);
     //width += width % 2 - 1;
-    let width = 51;
+    let width = 75;
     //let height = Math.floor((window.innerHeight - 40) / 20);
     //height += height % 2 - 1;
-    let height = 21;
+    let height = 45;
     let maze = new Array(height).fill(0).map(() => new Array(width).fill(0));
     for (let i = 0; i < maze[0].length; i += 1) {
       maze[0][i] = 1;
