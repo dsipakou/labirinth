@@ -25,8 +25,8 @@ export default {
       const hDiff = right - left;
       const vDiff = top - bottom;
 
-      if (hDiff < vDiff) {
-        if (hDiff < 4) {
+      if (hDiff > vDiff) {
+        if (hDiff < 4 || vDiff < 2) {
           return maze;
         }
         
@@ -40,17 +40,13 @@ export default {
 
         var hole = Math.floor(Math.random() * (top - bottom - 2) + bottom);
         hole += hole % 2 + 1;
-        if (hole < maze.length - 1 && hole > 0) {
-          maze[hole][wall] = 0;
-        }
-        /*maze = generateMaze(maze, left, wall, bottom, hole - 1);
-        maze = generateMaze(maze, left, wall, hole + 1, top);
-        maze = generateMaze(maze, wall, right, bottom, hole - 1);
-        maze = generateMaze(maze, wall, right, hole + 1, top);*/
+        maze[hole][wall] = 0;
+        maze = generateMaze(maze, left, wall, bottom, hole);
+        maze = generateMaze(maze, left, wall, hole, top);
+        maze = generateMaze(maze, wall, right, bottom, hole);
+        maze = generateMaze(maze, wall, right, hole, top);
       } else {
-        let diff = top - bottom;
-
-        if (diff < 4) {
+        if (vDiff < 4 || hDiff < 2) {
           return maze;
         }
 
@@ -65,19 +61,16 @@ export default {
         let hole = Math.floor(Math.random() * (hDiff - 2) + left);
         hole += hole % 2 + 1;
         maze[wall][hole] = 0;
-        // maze = generateMaze(maze, left, right, bottom, pivot - 2);
-        // maze = generateMaze(maze, left, right, pivot + 2, top);
+        maze = generateMaze(maze, hole, right, wall, top);
+        maze = generateMaze(maze, left, hole, wall, top);
+        maze = generateMaze(maze, hole, right, bottom, wall);
+        maze = generateMaze(maze, left, hole, bottom, wall)
       }
       
-      console.log('return')
       return maze;
     }
 
-    //let width = Math.floor((window.innerWidth - 40) / 20);
-    //width += width % 2 - 1;
     let width = 75;
-    //let height = Math.floor((window.innerHeight - 40) / 20);
-    //height += height % 2 - 1;
     let height = 45;
     let maze = new Array(height).fill(0).map(() => new Array(width).fill(0));
     for (let i = 0; i < maze[0].length; i += 1) {
