@@ -28,8 +28,8 @@ export default {
           return maze;
         }
         
-        const ratio = Math.max(0, diff - 5)
-        let wall = Math.floor(Math.random() * ratio + left + 1);
+        const hRatio = Math.max(0, diff - 5)
+        let wall = Math.floor(Math.random() * hRatio+ left + 1);
         wall += wall % 2;
         console.log(diff, left, wall, right)
 
@@ -38,6 +38,7 @@ export default {
         }
 
         var hole = Math.floor(Math.random() * (top - bottom - 2) + bottom);
+        hole += hole % 2 + 1;
         if (hole < maze.length - 1 && hole > 0) {
           maze[hole][wall] = 0;
         }
