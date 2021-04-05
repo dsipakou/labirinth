@@ -1,17 +1,19 @@
 <template>
   <div id="app">
-    <select v-model="selected">
-      <option disabled value="">Please select one</option>
-      <option>A</option>
-      <option>B</option>
-      <option>C</option>
-    </select>
-    <span>Selected: {{ selected }}</span>
-    <div class="container" v-for="heights, heightIndex in maze" :key="heights + heightIndex">
-      <div v-for="width, widthIndex in heights" :key="width + widthIndex + heightIndex">
-        <Cell :left="widthIndex * 20" :top="heightIndex * 20" :type="maze[heightIndex][widthIndex]"/>
+    <div class="container">
+      <select v-model="selected">
+        <option disabled value="">Please select one</option>
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+      </select>
+      <span>Selected: {{ selected }}</span>
+      <div v-for="heights, heightIndex in maze" :key="heights + heightIndex">
+        <div v-for="width, widthIndex in heights" :key="width + widthIndex + heightIndex">
+          <Cell :left="widthIndex * 20" :top="heightIndex * 20" :type="maze[heightIndex][widthIndex]"/>
+        </div>
       </div>
-    </div>
+    </div>     
   </div>
 </template>
 
@@ -112,7 +114,10 @@ export default {
 }
 
 .container {
+  width: 100%;
+  height: 100%;
   display: flex;
-  vertical-align: center;
+  align-items: center;
+  justify-content: center;
 }
 </style>
