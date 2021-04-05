@@ -7,7 +7,7 @@
       <option>C</option>
     </select>
     <span>Selected: {{ selected }}</span>
-    <div v-for="heights, heightIndex in maze" :key="heights + heightIndex">
+    <div class="container" v-for="heights, heightIndex in maze" :key="heights + heightIndex">
       <div v-for="width, widthIndex in heights" :key="width + widthIndex + heightIndex">
         <Cell :left="widthIndex * 20" :top="heightIndex * 20" :type="maze[heightIndex][widthIndex]"/>
       </div>
@@ -19,13 +19,19 @@
 import Cell from './components/Cell.vue'
 
 export default {
-  data () {
+  computed () {
 
-    const generateMaze = (maze, left, right, bottom, top) => {
+  },
+  data () {
+    const generateMaze = (maze, left, right, bottom, top, ret=false) => {
+      if (ret) {
+        return maze;
+      }
       const hDiff = right - left;
       const vDiff = top - bottom;
+      const dirr = Math.random() > 0.5 ? 1 : 0
 
-      if (hDiff > vDiff) {
+      if (dirr === 1) {
         if (hDiff < 4 || vDiff < 2) {
           return maze;
         }
@@ -34,17 +40,16 @@ export default {
         let wall = Math.floor(Math.random() * hRatio + left + 1);
         wall += wall % 2;
 
-        for (let i = bottom; i < top; i += 1) {
+        for (let i = bottom + 1; i < top; i += 1) {
           maze[i][wall] = 1;
+          console.log(i, wall)
         }
 
         var hole = Math.floor(Math.random() * (top - bottom - 2) + bottom);
         hole += hole % 2 + 1;
         maze[hole][wall] = 0;
-        maze = generateMaze(maze, left, wall, bottom, hole);
-        maze = generateMaze(maze, left, wall, hole, top);
-        maze = generateMaze(maze, wall, right, bottom, hole);
-        maze = generateMaze(maze, wall, right, hole, top);
+        maze = generateMaze(maze, left, wall, bottom, top);
+        maze = generateMaze(maze, wall, right, bottom, top);
       } else {
         if (vDiff < 4 || hDiff < 2) {
           return maze;
@@ -54,17 +59,16 @@ export default {
         let wall = Math.floor(Math.random() * vRatio + bottom + 1);
         wall += wall % 2;
 
-        for (let i = left - 1; i < right;  i += 1) {
+        for (let i = left; i < right;  i += 1) {
           maze[wall][i] = 1;
         }
 
         let hole = Math.floor(Math.random() * (hDiff - 2) + left);
         hole += hole % 2 + 1;
         maze[wall][hole] = 0;
-        maze = generateMaze(maze, hole, right, wall, top);
-        maze = generateMaze(maze, left, hole, wall, top);
-        maze = generateMaze(maze, hole, right, bottom, wall);
-        maze = generateMaze(maze, left, hole, bottom, wall)
+        this.maze = maze;
+        maze = generateMaze(maze, left, right, wall, top);
+        maze = generateMaze(maze, left, right, bottom, wall);
       }
       
       return maze;
@@ -82,7 +86,6 @@ export default {
       maze[i][width - 1] = 1;
     }
     const finalMaze = generateMaze(maze, 0, maze[0].length - 1, 0, maze.length - 1)
-    console.log(finalMaze)
     return {
       maze: finalMaze,
       winWidth: window.innerWidth,
@@ -106,5 +109,10 @@ export default {
   margin-top: 60px;
   width: 100%;
   height: 100%;
+}
+
+.container {
+  display: flex;
+  vertical-align: center;
 }
 </style>
