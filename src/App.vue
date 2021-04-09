@@ -12,7 +12,8 @@
       <br />
       <label>Width:</label><input v-model="inputWidth" placeholder="Enter width" />
       <label>Height:</label><input v-model="inputHeight" placeholder="Enter height" />
-      {{inputWidth}}
+      <br />
+      <button v-on:click="generateMaze">Создать</button>
     </div>
     <div class="container">
       <div v-for="heights, heightIndex in maze" :key="heights + heightIndex">
@@ -32,20 +33,23 @@ export default {
 
   },
   created () {
-    let width = 75;
-    let height = 37;
-    this.maze = new Array(height).fill(0).map(() => new Array(width).fill(0));
-    for (let i = 0; i < this.maze[0].length; i += 1) {
-      this.maze[0][i] = 1;
-      this.maze[height - 1][i] = 1;
-    }
-    for (let i = 1; i < this.maze.length; i += 1) {
-      this.maze[i][0] = 1;
-      this.maze[i][width - 1] = 1;
-    }
-    this.generateMaze(0, this.maze[0].length - 1, 0, this.maze.length - 1);
+    this.initGenerate();
   },
   methods: {
+    initGenerate() {
+      let width = this.inputWidth;
+      let height = this.inputHeight;
+      this.maze = new Array(height).fill(0).map(() => new Array(width).fill(0));
+      for (let i = 0; i < this.maze[0].length; i += 1) {
+        this.maze[0][i] = 1;
+        this.maze[height - 1][i] = 1;
+      }
+      for (let i = 1; i < this.maze.length; i += 1) {
+        this.maze[i][0] = 1;
+        this.maze[i][width - 1] = 1;
+      }
+      this.generateMaze(0, this.width, 0, this.height);
+    },
     generateMaze (left, right, bottom, top, ret=false) {
       if (ret) {
         return this.maze;
@@ -96,6 +100,8 @@ export default {
 
   data: () => ({
     maze: [],
+    inputWidth: 41,
+    inputHeight: 23,
   }),
 
   name: 'App',
