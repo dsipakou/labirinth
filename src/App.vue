@@ -1,16 +1,19 @@
 <template>
   <div id="app">
-    <div class="container">
+    <div class="header">
       <select v-model="selected">
         <option disabled value="">Please select one</option>
         <option>A</option>
         <option>B</option>
         <option>C</option>
       </select>
+      <br />
       <span>Selected: {{ selected }}</span>
+    </div>
+    <div class="container">
       <div v-for="heights, heightIndex in maze" :key="heights + heightIndex">
         <div v-for="width, widthIndex in heights" :key="width + widthIndex + heightIndex">
-          <Cell :left="widthIndex * 20" :top="heightIndex * 20" :type="maze[heightIndex][widthIndex]"/>
+          <Cell :left="widthIndex * 30" :top="heightIndex * 30" :type="maze[heightIndex][widthIndex]"/>
         </div>
       </div>
     </div>     
@@ -25,7 +28,21 @@ export default {
 
   },
   created () {
-    const generateMaze = (left, right, bottom, top, ret=false) => {
+    let width = 79;
+    let height = 37;
+    this.maze = new Array(height).fill(0).map(() => new Array(width).fill(0));
+    for (let i = 0; i < this.maze[0].length; i += 1) {
+      this.maze[0][i] = 1;
+      this.maze[height - 1][i] = 1;
+    }
+    for (let i = 1; i < this.maze.length; i += 1) {
+      this.maze[i][0] = 1;
+      this.maze[i][width - 1] = 1;
+    }
+    this.generateMaze(0, this.maze[0].length - 1, 0, this.maze.length - 1);
+  },
+  methods: {
+    generateMaze (left, right, bottom, top, ret=false) {
       if (ret) {
         return this.maze;
       }
@@ -35,7 +52,7 @@ export default {
 
       if (dirr === 1) {
         if (hDiff < 4 || vDiff < 2) {
-          return this.maze;
+          return;
         }
         
         let hRatio = Math.max(0, hDiff - 5)
@@ -44,17 +61,16 @@ export default {
 
         for (let i = bottom + 1; i < top; i += 1) {
           this.maze[i][wall] = 1;
-          console.log(i, wall)
         }
 
         var hole = Math.floor(Math.random() * (top - bottom - 2) + bottom);
         hole += hole % 2 + 1;
         this.maze[hole][wall] = 0;
-        this.maze = generateMaze(left, wall, bottom, top);
-        this.maze = generateMaze(wall, right, bottom, top);
+        this.generateMaze(left, wall, bottom, top);
+        this.generateMaze(wall, right, bottom, top);
       } else {
         if (vDiff < 4 || hDiff < 2) {
-          return this.maze;
+          return;
         }
 
         let vRatio = Math.max(0, vDiff - 5);
@@ -68,24 +84,10 @@ export default {
         let hole = Math.floor(Math.random() * (hDiff - 2) + left);
         hole += hole % 2 + 1;
         this.maze[wall][hole] = 0;
-        this.maze = generateMaze(left, right, wall, top);
-        this.maze = generateMaze(left, right, bottom, wall);
+        this.generateMaze(left, right, wall, top);
+        this.generateMaze(left, right, bottom, wall);
       }
-      return this.maze; 
     }
-
-    let width = 75;
-    let height = 45;
-    this.maze = new Array(height).fill(0).map(() => new Array(width).fill(0));
-    for (let i = 0; i < this.maze[0].length; i += 1) {
-      this.maze[0][i] = 1;
-      this.maze[height - 1][i] = 1;
-    }
-    for (let i = 1; i < this.maze.length; i += 1) {
-      this.maze[i][0] = 1;
-      this.maze[i][width - 1] = 1;
-    }
-    this.maze = generateMaze(0, this.maze[0].length - 1, 0, this.maze.length - 1)
   },
 
   data: () => ({
@@ -112,6 +114,7 @@ export default {
 }
 
 .container {
+  position: relative;
   width: 100%;
   height: 100%;
   display: flex;

@@ -25,8 +25,8 @@ export default {
 
 <style scoped>
 .cell {
-    width: 16px;
-    height: 16px;
+    width: 26px;
+    height: 26px;
     position: absolute;
     padding: 1px;
     border: 1px solid white;
