@@ -9,6 +9,10 @@
       </select>
       <br />
       <span>Selected: {{ selected }}</span>
+      <br />
+      <label>Width:</label><input v-model="inputWidth" placeholder="Enter width" />
+      <label>Height:</label><input v-model="inputHeight" placeholder="Enter height" />
+      {{inputWidth}}
     </div>
     <div class="container">
       <div v-for="heights, heightIndex in maze" :key="heights + heightIndex">
@@ -28,7 +32,7 @@ export default {
 
   },
   created () {
-    let width = 79;
+    let width = 75;
     let height = 37;
     this.maze = new Array(height).fill(0).map(() => new Array(width).fill(0));
     for (let i = 0; i < this.maze[0].length; i += 1) {
