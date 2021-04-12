@@ -1,15 +1,7 @@
 <template>
   <div id="app">
     <div class="header">
-      <select v-model="selected">
-        <option disabled value="">Please select one</option>
-        <option>A</option>
-        <option>B</option>
-        <option>C</option>
-      </select>
-      <br />
-      <span>Selected: {{ selected }}</span>
-      <br />
+      <Size />
       <label>Width:</label><input v-model="inputWidth" placeholder="Enter width" />
       <label>Height:</label><input v-model="inputHeight" placeholder="Enter height" />
       <br />
@@ -26,7 +18,8 @@
 </template>
 
 <script>
-import Cell from './components/Cell.vue'
+import Cell from './components/Cell.vue';
+import Size from './components/Size.vue';
 
 export default {
   computed () {
@@ -108,6 +101,7 @@ export default {
   name: 'App',
   components: {
     Cell,
+    Size,
   },
 }
 </script>
