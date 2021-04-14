@@ -20,6 +20,7 @@
 <script>
 import Cell from './components/Cell.vue';
 import Size from './components/Size.vue';
+import { store } from './store';
 
 export default {
   computed () {
@@ -30,7 +31,7 @@ export default {
   },
   methods: {
     initGenerate() {
-      let width = parseInt(this.inputWidth);
+      let width = parseInt(store.getters.getWidth);
       let height = parseInt(this.inputHeight);
       this.maze = new Array(height).fill(0).map(() => new Array(width).fill(0));
       for (let i = 0; i < this.maze[0].length; i += 1) {

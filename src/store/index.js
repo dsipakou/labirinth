@@ -8,6 +8,10 @@ export const store = Vuex.Store({
     width: 41,
     height: 21,
   },
+  getters: {
+    getWidth: state => state.width,
+    getHeight: state => state.height,
+  },
   mutations: {
     setSize (state, width, height) {
       state.width = width;
