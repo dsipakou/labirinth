@@ -2,8 +2,8 @@
   <div id="app">
     <div class="header">
       <Size />
-      <label>Width:</label><input v-model="inputWidth" placeholder="Enter width" />
-      <label>Height:</label><input v-model="inputHeight" placeholder="Enter height" />
+      <label>Width:</label><input v-model="width" placeholder="Enter width" />
+      <label>Height:</label><input v-model="height" placeholder="Enter height" />
       <br />
       <button v-on:click="initGenerate">Создать</button>
     </div>
@@ -20,27 +20,33 @@
 <script>
 import Cell from './components/Cell.vue';
 import Size from './components/Size.vue';
-import { store } from './store';
+import { mapGetters } from 'vuex';
 
 export default {
-  computed () {
-
+  data() {
+    return {
+      maze: [],
+    }
+  },
+  computed: {
+    ...mapGetters({
+      width: 'getWidth',
+      height: 'getHeight',
+    })
   },
   created () {
     this.initGenerate();
   },
   methods: {
     initGenerate() {
-      let width = parseInt(store.getters.getWidth);
-      let height = parseInt(this.inputHeight);
-      this.maze = new Array(height).fill(0).map(() => new Array(width).fill(0));
+      this.maze = new Array(this.height).fill(0).map(() => new Array(this.width).fill(0));
       for (let i = 0; i < this.maze[0].length; i += 1) {
         this.maze[0][i] = 1;
-        this.maze[height - 1][i] = 1;
+        this.maze[this.height - 1][i] = 1;
       }
       for (let i = 1; i < this.maze.length; i += 1) {
         this.maze[i][0] = 1;
-        this.maze[i][width - 1] = 1;
+        this.maze[i][this.width - 1] = 1;
       }
       this.generateMaze(0, this.maze[0].length - 1, 0, this.maze.length - 1);
     },
@@ -93,11 +99,6 @@ export default {
     }
   },
 
-  data: () => ({
-    maze: [],
-    inputWidth: 41,
-    inputHeight: 23,
-  }),
 
   name: 'App',
   components: {
