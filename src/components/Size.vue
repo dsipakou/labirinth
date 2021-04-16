@@ -12,10 +12,7 @@ import { mapActions, mapGetters } from 'vuex';
 
 export default {
   computed: {
-    ...mapGetters({
-      inputWidth: 'getWidth',
-      inputHeight: 'getHeight',
-    })
+    ...mapGetters(["getWidth", "getHeight"]),
   },
   methods: {
     ...mapActions(['setSize']),
@@ -28,6 +25,10 @@ export default {
     initGenerate() {
       console.log("Click on Create button");
     }
-  }
+  },
+  mounted() {
+    this.inputWidth = this.getWidth;
+    this.inputHeight = this.getHeight;
+  },
 }
 </script>
