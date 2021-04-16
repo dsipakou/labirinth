@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import getters from './getters';
+import mutations from './mutations';
 
 Vue.use(Vuex);
 
@@ -12,10 +13,5 @@ const state = {
 export const store = new Vuex.Store({
   state,
   getters,
-  mutations: {
-    setSize (state, width, height) {
-      state.width = width;
-      state.height = height;
-    }
-  }
+  mutations,
 });
