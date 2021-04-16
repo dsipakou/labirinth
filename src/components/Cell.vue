@@ -4,22 +4,22 @@
 
 <script>
 export default {
-    name: 'Cell',
-    props: {
-        left: Number,
-        top: Number,
-        type: Number,
-    },
-    computed: {
-      styles() {
-        const background = this.type == 0 ? "#FFFFFF" : "#000000"
-        return {
-          "left": `${this.left}px`,
-          "top": `${this.top}px`,
-          "background-color": background,
-        }
+  name: 'Cell',
+  props: {
+      left: Number,
+      top: Number,
+      type: Number,
+  },
+  computed: {
+    styles() {
+      const background = this.type == 0 ? "#FFFFFF" : "#000000"
+      return {
+        "left": `${this.left}px`,
+        "top": `${this.top}px`,
+        "background-color": background,
       }
     }
+  }
 }
 </script>
 

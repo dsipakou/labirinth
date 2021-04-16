@@ -2,10 +2,6 @@
   <div id="app">
     <div class="header">
       <Size />
-      <label>Width:</label><input v-model="width" placeholder="Enter width" />
-      <label>Height:</label><input v-model="height" placeholder="Enter height" />
-      <br />
-      <button v-on:click="initGenerate">Создать</button>
     </div>
     <div class="container">
       <div v-for="heights, heightIndex in maze" :key="heights + heightIndex">
