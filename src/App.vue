@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="header">
-      <Size />
+      <Size v-bind:inputWidth="width" v-bind:inputHeight="height" />
     </div>
     <div class="container">
       <div v-for="heights, heightIndex in maze" :key="heights + heightIndex">
@@ -32,6 +32,10 @@ export default {
   },
   created () {
     this.initGenerate();
+  },
+  watch: {
+    width() { this.initGenerate() },
+    height() { this.initGenerate() },
   },
   methods: {
     initGenerate() {

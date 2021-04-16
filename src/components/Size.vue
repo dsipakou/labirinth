@@ -8,11 +8,12 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
-  computed: {
-    ...mapGetters(["getWidth", "getHeight"]),
+  props: {
+    inputWidth: Number,
+    inputHeight: Number,
   },
   methods: {
     ...mapActions(['setSize']),
@@ -25,10 +26,6 @@ export default {
     initGenerate() {
       console.log("Click on Create button");
     }
-  },
-  mounted() {
-    this.inputWidth = this.getWidth;
-    this.inputHeight = this.getHeight;
   },
 }
 </script>
