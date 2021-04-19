@@ -3,6 +3,9 @@
     <div class="header">
       <Size v-bind:inputWidth="width" v-bind:inputHeight="height" />
     </div>
+    <div>
+      <button v-on:click="regenerate">Re-create maze</button>
+    </div>
     <div class="container">
       <div v-for="heights, heightIndex in maze" :key="heights + heightIndex">
         <div v-for="width, widthIndex in heights" :key="width + widthIndex + heightIndex">
@@ -38,6 +41,9 @@ export default {
     height() { this.initGenerate() },
   },
   methods: {
+    regenerate() {
+      this.initGenerate();
+    },
     initGenerate() {
       this.maze = new Array(this.height).fill(0).map(() => new Array(this.width).fill(0));
       for (let i = 0; i < this.maze[0].length; i += 1) {
