@@ -44,6 +44,7 @@ export default {
     regenerate() {
       this.initGenerate();
     },
+
     initGenerate() {
       this.maze = new Array(this.height).fill(0).map(() => new Array(this.width).fill(0));
       for (let i = 0; i < this.maze[0].length; i += 1) {
@@ -78,7 +79,7 @@ export default {
           this.maze[i][wall] = 1;
         }
 
-        var hole = Math.floor(Math.random() * (top - bottom - 2) + bottom);
+        var hole = Math.floor(Math.random() * (vDiff - 2) + bottom);
         hole += hole % 2 + 1;
         this.maze[hole][wall] = 0;
         this.generateMaze(left, wall, bottom, top);
