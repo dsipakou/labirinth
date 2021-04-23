@@ -1,11 +1,16 @@
 <template>
-  <div id="app">
-    <div class="header">
-      <Size v-bind:inputWidth="width" v-bind:inputHeight="height" />
-    </div>
-    <div>
-      <button v-on:click="regenerate">Re-create maze</button>
-    </div>
+  <v-app id="app">
+    <v-container>
+      <v-row>
+        <v-col>
+          <Size v-bind:inputWidth="width" v-bind:inputHeight="height" />
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <v-btn v-on:click="regenerate">Re-create maze</v-btn>
+        </v-col>
+      </v-row>
     <div class="container">
       <div v-for="heights, heightIndex in maze" :key="heights + heightIndex">
         <div v-for="width, widthIndex in heights" :key="width + widthIndex + heightIndex">
@@ -13,7 +18,8 @@
         </div>
       </div>
     </div>     
-  </div>
+    </v-container>
+  </v-app>
 </template>
 
 <script>

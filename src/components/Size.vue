@@ -1,10 +1,19 @@
 <template>
-  <div>
-    <label>Width:</label><input v-model="inputWidth" placeholder="Enter width" />
-    <label>Height:</label><input v-model="inputHeight" placeholder="Enter height" />
-    <br />
-    <button v-on:click="changeSize">Изменить размер</button>
-  </div>
+  <v-container class="grey lighten-5">
+    <v-row justify="center">
+      <v-col md="4">
+        <v-text-field label="width" v-model="inputWidth" placeholder="Enter width" />
+      </v-col>
+      <v-col md="4">
+        <v-text-field label="height" v-model="inputHeight" placeholder="Enter height" />
+      </v-col>
+    </v-row>
+    <v-row justify="left">
+      <v-col md="8">
+        <v-btn v-on:click="changeSize">Change size</v-btn>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
