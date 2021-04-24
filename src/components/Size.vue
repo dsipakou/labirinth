@@ -1,19 +1,19 @@
 <template>
-  <v-container class="grey lighten-5">
+  <div>
     <v-row justify="center">
-      <v-col md="4">
+      <v-col md="3">
         <v-text-field label="width" v-model="inputWidth" placeholder="Enter width" />
       </v-col>
-      <v-col md="4">
+      <v-col md="3">
         <v-text-field label="height" v-model="inputHeight" placeholder="Enter height" />
       </v-col>
     </v-row>
     <v-row justify="left">
-      <v-col md="8">
+      <v-col md="6">
         <v-btn v-on:click="changeSize">Change size</v-btn>
       </v-col>
     </v-row>
-  </v-container>
+    </div>
 </template>
 
 <script>

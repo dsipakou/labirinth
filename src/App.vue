@@ -1,23 +1,27 @@
 <template>
   <v-app id="app">
-    <v-container>
-      <v-row>
-        <v-col>
+    <v-container class="grey lighten-5">
+      <v-row justify="center" class="mb-6">
+        <v-col md="12">
           <Size v-bind:inputWidth="width" v-bind:inputHeight="height" />
         </v-col>
       </v-row>
-      <v-row>
-        <v-col>
+      <v-row class="mb-6">
+        <v-col md="12">
           <v-btn v-on:click="regenerate">Re-create maze</v-btn>
         </v-col>
       </v-row>
-    <div class="container">
-      <div v-for="heights, heightIndex in maze" :key="heights + heightIndex">
-        <div v-for="width, widthIndex in heights" :key="width + widthIndex + heightIndex">
-          <Cell :left="widthIndex * 30" :top="heightIndex * 30" :type="maze[heightIndex][widthIndex]"/>
-        </div>
-      </div>
-    </div>     
+      <v-row>
+        <v-col md="12">
+          <div class="container">
+            <div v-for="heights, heightIndex in maze" :key="heights + heightIndex">
+              <div v-for="width, widthIndex in heights" :key="width + widthIndex + heightIndex">
+                <Cell :left="widthIndex * 30" :top="heightIndex * 30" :type="maze[heightIndex][widthIndex]"/>
+              </div>
+            </div>
+          </div>     
+        </v-col>
+      </v-row>
     </v-container>
   </v-app>
 </template>
