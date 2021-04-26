@@ -1,18 +1,19 @@
 <template>
   <v-app id="app">
-    <v-container class="grey lighten-5">
-      <v-row justify="center" class="mb-6">
-        <v-col md="12">
+    <v-container class="grey lighten-5" justify="left">
+      <div class="inner">
+      <v-row justify="left">
+        <v-col cols="auto">
           <Size v-bind:inputWidth="width" v-bind:inputHeight="height" />
         </v-col>
       </v-row>
-      <v-row class="mb-6">
-        <v-col md="12">
+      <v-row justify="left">
+        <v-col cols="auto">
           <v-btn v-on:click="regenerate">Re-create maze</v-btn>
         </v-col>
       </v-row>
-      <v-row>
-        <v-col md="12">
+      <v-row justify="left">
+        <v-col md="auto">
           <div class="container">
             <div v-for="heights, heightIndex in maze" :key="heights + heightIndex">
               <div v-for="width, widthIndex in heights" :key="width + widthIndex + heightIndex">
@@ -22,6 +23,7 @@
           </div>     
         </v-col>
       </v-row>
+      </div>
     </v-container>
   </v-app>
 </template>
@@ -134,6 +136,11 @@ export default {
   margin-top: 60px;
   width: 100%;
   height: 100%;
+}
+
+.inner {
+  height: 100%;
+  width: 100%;
 }
 
 .container {
