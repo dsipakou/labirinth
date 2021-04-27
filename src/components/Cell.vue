@@ -1,5 +1,5 @@
 <template>
-    <div class="cell" v-bind:style="styles"></div>
+    <div @mouseover="mouseOver" @mouseout="mouseOut" class="cell" :style="cellStyle"></div>
 </template>
 
 <script>
@@ -9,6 +9,26 @@ export default {
       left: Number,
       top: Number,
       type: Number,
+  },
+  data() {
+    const bgColor = this.type == 0 ? "#FFFFFF" : "#000000";
+
+    return {
+      cellStyle: {
+        background: "#FDDACD",
+        left: `${this.left}px`,
+        top: `${this.top}px`,
+        backgroundColor: bgColor,
+      } 
+    }
+  },
+  methods: {
+    mouseOver: () => {
+      console.log("hello");
+    },
+    mouseOut: () => {
+      console.log("Bye");
+    }
   },
   computed: {
     styles() {
