@@ -11,11 +11,10 @@ export default {
       type: Number,
   },
   data() {
-    const bgColor = this.type == 0 ? "#FFFFFF" : "#000000";
+    let bgColor = this.type === 0 ? "#FFFFFF" : "#000000";
 
     return {
       cellStyle: {
-        background: "#FDDACD",
         left: `${this.left}px`,
         top: `${this.top}px`,
         backgroundColor: bgColor,
@@ -23,11 +22,15 @@ export default {
     }
   },
   methods: {
-    mouseOver: () => {
-      console.log("hello");
+    mouseOver() {
+      if (this.type === 0) {
+        this.cellStyle.backgroundColor = "#FACDEA";
+      }
     },
-    mouseOut: () => {
-      console.log("Bye");
+    mouseOut() {
+      if (this.type === 0) {
+        this.cellStyle.backgroundColor = "#FFFFFF";
+      }
     }
   },
   computed: {
