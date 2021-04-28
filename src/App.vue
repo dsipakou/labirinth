@@ -15,8 +15,8 @@
       <v-row justify="left">
         <v-col md="auto">
           <div class="container">
-            <div v-for="heights, heightIndex in maze" :key="heights + heightIndex">
-              <div v-for="width, widthIndex in heights" :key="width + widthIndex + heightIndex">
+            <div v-for="heights, heightIndex in maze" :key="`${heights}${heightIndex}`">
+              <div v-for="width, widthIndex in heights" :key="`${width}${widthIndex}${heightIndex}`">
                 <Cell :left="widthIndex * 30" :top="heightIndex * 30" :type="maze[heightIndex][widthIndex]"/>
               </div>
             </div>
