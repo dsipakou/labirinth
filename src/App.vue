@@ -2,27 +2,38 @@
   <v-app id="app">
     <v-container class="grey lighten-5" justify="left">
       <div class="inner">
-      <v-row justify="left">
-        <v-col cols="auto">
-          <Size v-bind:inputWidth="width" v-bind:inputHeight="height" />
-        </v-col>
-      </v-row>
-      <v-row justify="left">
-        <v-col cols="auto">
-          <v-btn v-on:click="regenerate">Re-create maze</v-btn>
-        </v-col>
-      </v-row>
-      <v-row justify="left">
-        <v-col md="auto">
-          <div class="container">
-            <div v-for="heights, heightIndex in maze" :key="`${heights}${heightIndex}`">
-              <div v-for="width, widthIndex in heights" :key="`${width}${widthIndex}${heightIndex}`">
-                <Cell :left="widthIndex * 30" :top="heightIndex * 30" :type="maze[heightIndex][widthIndex]"/>
+        <v-overlay :value="showSetup">
+        <v-card class="mx-auto" max-width="370">
+        <v-row justify="left">
+          <v-col cols="auto">
+            <Size v-bind:inputWidth="width" v-bind:inputHeight="height" />
+          </v-col>
+        </v-row>
+        <v-row justify="left">
+          <v-col cols="auto">
+            <v-btn v-on:click="regenerate">Re-create maze</v-btn>
+          </v-col>
+        </v-row>
+        </v-card>
+        </v-overlay>
+        <v-row justify="center">
+          <v-btn
+            class="info"
+            @click="handlePopup">
+            Setup
+          </v-btn>
+        </v-row>
+        <v-row justify="left">
+          <v-col md="auto">
+            <div class="container">
+              <div v-for="heights, heightIndex in maze" :key="`${heights}${heightIndex}`">
+                <div v-for="width, widthIndex in heights" :key="`${width}${widthIndex}${heightIndex}`">
+                  <Cell :left="widthIndex * 30" :top="heightIndex * 30" :type="maze[heightIndex][widthIndex]"/>
+                </div>
               </div>
-            </div>
-          </div>     
-        </v-col>
-      </v-row>
+            </div>     
+          </v-col>
+        </v-row>
       </div>
     </v-container>
   </v-app>
@@ -31,7 +42,7 @@
 <script>
 import Cell from './components/Cell.vue';
 import Size from './components/Size.vue';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   data() {
@@ -43,6 +54,7 @@ export default {
     ...mapGetters({
       width: 'getWidth',
       height: 'getHeight',
+      showSetup: 'getShowSetup',
     })
   },
   created () {
@@ -53,6 +65,11 @@ export default {
     height() { this.initGenerate() },
   },
   methods: {
+    ...mapActions(['managePopup']),
+  
+    handlePopup() {
+      this.managePopup(!this.showSetup);
+    },
     regenerate() {
       this.initGenerate();
     },

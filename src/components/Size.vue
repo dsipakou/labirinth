@@ -17,20 +17,27 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   props: {
     inputWidth: Number,
     inputHeight: Number,
   },
+  computed: {
+    ...mapGetters({
+      showSetup: 'getShowSetup',
+    })
+  },
   methods: {
     ...mapActions(['setSize']),
+    ...mapActions(['managePopup']),
     changeSize() {
       this.setSize({
         width: parseInt(this.inputWidth),
         height: parseInt(this.inputHeight),
       });
+      this.managePopup(!this.showSetup)
     },
     initGenerate() {
       console.log("Click on Create button");
