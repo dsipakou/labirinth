@@ -8,7 +8,8 @@ Vue.use(Vuex);
 
 const state = {
   width: 51,
-  height: 21,
+  height: 25,
+  showSetup: false,
 }
 
 export const store = new Vuex.Store({
