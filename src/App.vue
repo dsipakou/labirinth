@@ -3,18 +3,13 @@
     <v-container class="grey lighten-5" justify="left">
       <div class="inner">
         <v-overlay :value="showSetup">
-        <v-card class="mx-auto" max-width="370">
-        <v-row justify="left">
-          <v-col cols="auto">
-            <Size v-bind:inputWidth="width" v-bind:inputHeight="height" />
-          </v-col>
-        </v-row>
-        <v-row justify="left">
-          <v-col cols="auto">
-            <v-btn v-on:click="regenerate">Re-create maze</v-btn>
-          </v-col>
-        </v-row>
-        </v-card>
+          <v-card class="mx-auto" max-width="370">
+            <v-row justify="left">
+              <v-col cols="auto">
+                <Size v-bind:inputWidth="width" v-bind:inputHeight="height" />
+              </v-col>
+            </v-row>
+          </v-card>
         </v-overlay>
         <v-row justify="center">
           <v-btn
@@ -55,23 +50,31 @@ export default {
       width: 'getWidth',
       height: 'getHeight',
       showSetup: 'getShowSetup',
+      recreated: 'getRecreateMaze',
     })
   },
   created () {
     this.initGenerate();
   },
   watch: {
-    width() { this.initGenerate() },
-    height() { this.initGenerate() },
+    recreated() {
+      console.log(this.recreated);
+      if (this.recreated) {
+        this.regenerate();
+      }
+    },
   },
   methods: {
     ...mapActions(['managePopup']),
-  
+    ...mapActions(['recreate']),
+
     handlePopup() {
       this.managePopup(!this.showSetup);
     },
+
     regenerate() {
       this.initGenerate();
+      this.recreate(false);
     },
 
     initGenerate() {

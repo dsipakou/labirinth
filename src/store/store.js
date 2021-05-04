@@ -10,6 +10,7 @@ const state = {
   width: 51,
   height: 25,
   showSetup: false,
+  recreateMaze: false,
 }
 
 export const store = new Vuex.Store({

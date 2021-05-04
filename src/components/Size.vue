@@ -13,7 +13,7 @@
         <v-btn v-on:click="changeSize">Change size</v-btn>
       </v-col>
     </v-row>
-    </div>
+  </div>
 </template>
 
 <script>
@@ -32,11 +32,14 @@ export default {
   methods: {
     ...mapActions(['setSize']),
     ...mapActions(['managePopup']),
+    ...mapActions(['recreate']),
+
     changeSize() {
       this.setSize({
         width: parseInt(this.inputWidth),
         height: parseInt(this.inputHeight),
       });
+      this.recreate(true);
       this.managePopup(!this.showSetup)
     },
     initGenerate() {
