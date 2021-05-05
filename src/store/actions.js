@@ -1,4 +1,9 @@
-import { SET_WIDTH, SET_HEIGHT, SET_SHOW_SETUP, SET_RECREATE_MAZE} from './mutations';
+import {
+  SET_WIDTH,
+  SET_HEIGHT,
+  SET_SHOW_SETUP,
+  SET_RECREATE_MAZE
+} from './mutations';
 
 const setWidth = ({ commit }, data) => {
   commit(SET_WIDTH, data);

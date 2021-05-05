@@ -42,9 +42,6 @@ export default {
       this.recreate(true);
       this.managePopup(!this.showSetup)
     },
-    initGenerate() {
-      console.log("Click on Create button");
-    }
   },
 }
 </script>

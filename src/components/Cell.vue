@@ -1,5 +1,5 @@
 <template>
-    <div @mouseover="mouseOver" @mouseout="mouseOut" class="cell" :style="cellStyle"></div>
+    <div @mouseover="mouseOver" @mouseout="mouseOut" v-on:click="paint" class="cell" :style="cellStyle"></div>
 </template>
 
 <script>
@@ -11,7 +11,21 @@ export default {
       type: Number,
   },
   data() {
-    let bgColor = this.type === 0 ? "#FFFFFF" : "#000000";
+    let bgColor;
+
+    switch(this.type) {
+      case 0:
+        bgColor = "#FFFFFF";
+        break;
+      case 1:
+        bgColor = "#000000";
+        break;
+      case 2:
+        bgColor = "#32CD32";
+        break;
+      default:
+        bgColor = "#000000";
+    }
 
     return {
       cellStyle: {
@@ -30,6 +44,12 @@ export default {
     mouseOut() {
       if (this.type === 0) {
         this.cellStyle.backgroundColor = "#FFFFFF";
+      }
+    },
+    paint() {
+      if (this.type === 0) {
+        this.type = 2;
+        this.cellStyle.backgroundColor = "#FACDEA";
       }
     }
   },

@@ -45,6 +45,7 @@ export default {
       maze: [],
     }
   },
+
   computed: {
     ...mapGetters({
       width: 'getWidth',
@@ -53,17 +54,19 @@ export default {
       recreated: 'getRecreateMaze',
     })
   },
+
   created () {
     this.initGenerate();
   },
+
   watch: {
     recreated() {
-      console.log(this.recreated);
       if (this.recreated) {
         this.regenerate();
       }
     },
   },
+
   methods: {
     ...mapActions(['managePopup']),
     ...mapActions(['recreate']),
@@ -87,6 +90,7 @@ export default {
         this.maze[i][0] = 1;
         this.maze[i][this.width - 1] = 1;
       }
+      this.maze[1][1] = 2;
       this.generateMaze(0, this.maze[0].length - 1, 0, this.maze.length - 1);
     },
 
