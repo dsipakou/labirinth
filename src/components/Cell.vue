@@ -49,7 +49,7 @@ export default {
     paint() {
       if (this.type === 0) {
         this.type = 2;
-        this.cellStyle.backgroundColor = "#FACDEA";
+        this.cellStyle.backgroundColor = "#32CD32";
       }
     }
   },
