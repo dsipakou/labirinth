@@ -39,6 +39,8 @@ import Cell from './components/Cell.vue';
 import Size from './components/Size.vue';
 import { mapGetters, mapActions } from 'vuex';
 
+import { dijkstra } from './utils'; 
+
 export default {
   data() {
     return {
@@ -77,6 +79,7 @@ export default {
 
     regenerate() {
       this.initGenerate();
+      dijkstra(this.maze);
       this.recreate(false);
     },
 
